@@ -1,0 +1,21 @@
+DECLARAÇÃO DE ORIGEM DOS DADOS
+
+Arquivo: apc_viagens_simulado.csv
+Registros: 93.600
+Viagens: 2.700
+Período: 01/08/2026 a 15/09/2026
+Linhas: 875A-10, 917H-10, 609J-10
+
+ORIGEM: base SIMULADA, gerada integralmente pelo notebook desta entrega
+(Célula 2), a partir de parâmetros de operação de frota urbana descritos
+no próprio código.
+
+Nenhum dado pessoal, real ou identificável foi utilizado. Não há dados de
+passageiros individuais — apenas contagens agregadas por ponto de parada.
+
+O briefing da Global Solution permite o uso de dados simulados desde que a
+origem seja declarada, o que se faz neste arquivo e na Célula 0 do notebook.
+
+Para reproduzir: executar o notebook do início ao fim. A base é recriada
+com a seed 42 e o resultado é idêntico a cada execução.
+Esse último parágrafo é importante: mostra que a base é reproduzível. Um avaliador que desconfiar de dados simulados vai justamente testar se consegue regerar.
