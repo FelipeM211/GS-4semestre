@@ -1,0 +1,86 @@
+DECLARAÇÃO DE ORIGEM DOS DADOS
+
+Projeto: BusView
+Equipe: Frota 42
+Disciplina: Data Science & Statistical Computing
+
+Arquivo utilizado: movimentacao_sobe_desce_29-11-2018-001.csv
+Tamanho: 41,4 MB (41.407.710 bytes)
+Registros: 180.406
+Viagens: 3.156
+Linhas pesquisadas: 157
+Período coberto: 26/11/2008 a 17/03/2018 (160 datas de pesquisa)
+Colunas: 15
+
+ORIGEM: dados públicos reais, coletados em pesquisa de campo pela
+BHTRANS (Empresa de Transporte e Trânsito de Belo Horizonte), publicados
+pela Prefeitura de Belo Horizonte no Portal de Dados Abertos.
+
+Dataset: "Dados das pesquisas de embarque e desembarque de passageiros
+do transporte coletivo"
+Autor dos dados: Gerência de Pesquisa e Ciência de Dados (GEPDA) -
+Superintendência de Mobilidade (SUMOB)
+Licença: Creative Commons Attribution (CC-BY)
+
+Portal do dataset:
+https://dados.pbh.gov.br/pt_BR/dataset/dados-das-pesquisas-de-embarque-e-desembarque-de-passageiros-do-transporte-coletivo
+
+URL direta do arquivo:
+https://ckan.pbh.gov.br/dataset/59980ee4-d6e2-402b-ab8e-8eb669fa42d8/resource/debcf4bb-0510-415a-aaa0-d14245b44575/download/movimentacao_sobe_desce_29-11-2018-001.csv
+
+O QUE CADA REGISTRO CONTÉM: uma linha por ponto de parada, dentro de uma
+viagem pesquisada. Traz linha, serviço, consórcio, data da pesquisa, dia
+da semana, sentido do itinerário, horário da viagem, sequência do ponto,
+endereço, quantidade de embarques, quantidade de desembarques, saldo a
+bordo e total de passageiros da viagem.
+
+A coluna "Saldo" é a contagem de passageiros dentro do veículo naquele
+ponto do itinerário. É medição de campo, não estimativa nossa.
+
+DADOS PESSOAIS: nenhum. A base não contém informação de passageiros
+individuais — apenas contagens agregadas por ponto de parada e por
+viagem. Não há nome, documento, cartão ou qualquer identificador de
+pessoa.
+
+NOTA DE REPRODUTIBILIDADE: o download automático a partir do Google
+Colab retorna HTTP 403, porque o portal da PBH bloqueia IPs de
+datacenter. O arquivo foi obtido pelo navegador e carregado no notebook
+por upload manual (Célula 1C). O restante do notebook roda do início ao
+fim sem intervenção, a partir desse arquivo.
+
+LIMITAÇÕES DA BASE, DECLARADAS:
+
+1. Amostragem irregular ao longo de dez anos. São 160 datas entre
+novembro de 2008 e março de 2018, sem continuidade mensal: fevereiro de
+2009 tem 16.427 registros, enquanto julho de 2009 tem 405, e há meses
+sem nenhum registro. A base é um conjunto de campanhas de pesquisa
+acumuladas, não uma série temporal contínua.
+
+2. Inconsistência interna em 6,8% dos registros. Em 12.346 linhas, o
+valor de "Saldo" difere do acumulado de embarques menos desembarques,
+com diferença de até 89 passageiros. Optamos por não recalcular, porque
+corrigir inventaria dado. O efeito é ruído no alvo, que afeta igualmente
+todos os modelos.
+
+3. Sentido do itinerário desbalanceado. 155.884 registros em "Pc1->Pc2"
+contra 21.387 em "Pc2->Pc1", além de 3.135 registros em rota "Único".
+A avaliação separada por sentido não foi realizada.
+
+4. Dados defasados. A pesquisa mais recente é de março de 2018. A
+operação e a demanda mudaram desde então, e o modelo exigiria re-treino
+com dados atuais antes de uso em produção.
+
+5. Ausência de variáveis contextuais. A base não traz dados de clima,
+trânsito nem horário efetivo de realização da viagem — apenas o horário
+programado. Variáveis que afetam a lotação, portanto, não entram no
+modelo.
+
+6. Indicador de lotação por convenção. O limiar de 40 passageiros a
+bordo corresponde à ocupação de todos os assentos de um veículo
+convencional, mas não mede os assentos reais da frota pesquisada. É uma
+decisão de produto, não um valor ótimo calculado.
+
+7. Duas linhas de tratamento aplicadas. A divisão entre treino e teste
+foi feita por viagem, e não por data, justamente pela irregularidade
+apontada no item 1: agrupar por viagem garante que nenhuma viagem
+apareça nos dois conjuntos.
